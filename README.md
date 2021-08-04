@@ -24,7 +24,6 @@
 |send_day            |integer    |null: false|
 |detail              |text       |null: false|
 |user.id             |references |null: false|
-|send_day            |references |null: false|
 
 ### Association
 - belongs_to user
