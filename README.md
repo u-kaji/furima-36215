@@ -7,18 +7,16 @@
 |nickname            |string     |null: false              |
 |email               |string     |null: false, unique: true|
 |encrypted_password  |string     |null: false              |
-|name.first          |string     |null: false              |
-|name.last           |string     |null: false              |
-|name.first.kana     |string     |null: false              |
-|name.last.kana      |string     |null: false              |
-|birth.year          |integer    |null: false              |
-|birth.month         |integer    |null: false              |
-|birth.day           |integer    |null: false              |
+|name_first          |string     |null: false              |
+|name_last           |string     |null: false              |
+|name_first_kana     |string     |null: false              |
+|name_last_kana      |string     |null: false              |
+|birthday            |date       |null: false              |
 
 ### Association
 - has_many :items
 - has_many :comments
-- has_many :buying
+- has_many :buyings
 
 
 ## items テーブル
@@ -26,18 +24,18 @@
 ----------------------------------------------------------------
 |name                |string     |null: false                   |
 |detail              |text       |null: false                   |
-|category_id         |active_hash|null: false                   |
-|condition_id        |active_hash|null: false                   |
-|send_cost_id        |active_hash|null: false                   |
-|region_id           |active_hash|null: false                   |
-|send_day_id         |active_hash|null: false                   |
+|category_id         |integer    |null: false                   |
+|condition_id        |integer    |null: false                   |
+|send_cost_id        |integer    |null: false                   |
+|region_id           |integer    |null: false                   |
+|send_day_id         |integer    |null: false                   |
 |price               |integer    |null: false                   |
 |user                |references |null: false, foreign_key: true|
 
 ### Association
 - belongs_to :user
 _ has_many :comments
-_ has_one :buyer
+_ has_one :buying
 
 
 ## comments テーブル
@@ -53,7 +51,7 @@ _ has_one :buyer
 - belongs_to :user
 
 
-## buying テーブル
+## buyings テーブル
 
 |Column              |Type       |Options                       |
 ----------------------------------------------------------------
@@ -66,23 +64,18 @@ _ has_one :buyer
 - belongs_to :user
 - has_one :sent
 
-## sent テーブル
+## sents テーブル
 
 |Column              |Type       |Options                       |
 ----------------------------------------------------------------
 |buying              |references |null: false, foreign_key: true|
-|post_num            |integer    |null: false                   |
-|Prefecture          |active_hash|null: false                   |
+|post_num            |string     |null: false                   |
+|prefecture          |string     |null: false                   |
 |city                |string     |null: false                   |
 |address             |string     |null: false                   |
-|building            |string     |null: false                   |
-|phone               |integer    |null: false
-|credit_card_num     |integer    |null: false                   |
-|card_limit_month    |integer    |null: false                   |
-|card_limit_year     |integer    |null: false                   |
-|security_cord       |integer    |null: false                   |
-
+|building            |string     |                              |
+|phone               |string     |null: false
 
 
 ### Association
-- belongs_to :sent
+- belongs_to :buying
