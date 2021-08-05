@@ -16,7 +16,7 @@
 ### Association
 - has_many :items
 - has_many :comments
-- has_many :buyings
+- has_many :buys
 
 
 ## items テーブル
@@ -35,7 +35,7 @@
 ### Association
 - belongs_to :user
 _ has_many :comments
-_ has_one :buying
+_ has_one :buy
 
 
 ## comments テーブル
@@ -51,7 +51,7 @@ _ has_one :buying
 - belongs_to :user
 
 
-## buyings テーブル
+## buys テーブル
 
 |Column              |Type       |Options                       |
 ----------------------------------------------------------------
@@ -68,9 +68,9 @@ _ has_one :buying
 
 |Column              |Type       |Options                       |
 ----------------------------------------------------------------
-|buying              |references |null: false, foreign_key: true|
+|buy                 |references |null: false, foreign_key: true|
 |post_num            |string     |null: false                   |
-|prefecture          |string     |null: false                   |
+|prefecture_id       |integer    |null: false                   |
 |city                |string     |null: false                   |
 |address             |string     |null: false                   |
 |building            |string     |                              |
@@ -78,4 +78,4 @@ _ has_one :buying
 
 
 ### Association
-- belongs_to :buying
+- belongs_to :buy
