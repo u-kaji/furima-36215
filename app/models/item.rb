@@ -20,3 +20,4 @@ class Item < ApplicationRecord
     belongs_to :send_cost
     belongs_to :prefecture
     belongs_to :send_day
+end
