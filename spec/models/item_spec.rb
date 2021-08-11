@@ -51,12 +51,12 @@ RSpec.describe Item, type: :model do
       it 'priceが300円未満だと不可' do
         @item.price = 200
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include("Price is out of range")
       end
       it 'priceが9999999円越えると不可' do
         @item.price = 20000000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include("Price is out of range")
       end
       it 'priceが空だと不可' do
         @item.price = ""
@@ -66,12 +66,22 @@ RSpec.describe Item, type: :model do
       it 'price入力に全角文字は不可' do
         @item.price = "３０００"
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include("Price is invalid")
       end
       it 'priceに半角英数字混合は不可' do
         @item.price = "3milions"
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+      it 'priceに半角英語だけは不可' do
+        @item.price = "milions"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+      it 'ユーザーと紐付けされてなければ不可' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
       it '画像がなければ不可' do
         @item.image = nil
