@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all.order(id: "desc")
-    
+    @items = Item.all.order(id: "desc") 
   end
 
   def new
@@ -16,6 +15,10 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @item = Item.find(params[:id])
   end
 
   def destroy
