@@ -1,8 +1,8 @@
 class BuysController < ApplicationController
+
   def index
     @buy = Buy.new
-    @item = Item.find(params[:item_id])
-    @buy_order = BuyOrder.new
+    user_redirect
   end
 
   def new
@@ -27,5 +27,9 @@ class BuysController < ApplicationController
     params.require(:buy_order).permit(:post_num, :prefecture_id, :city, :address, :building, :phone_num).merge(user_id:current_user.id, item_id:@item.id)
   end
 
-end
+  def user_redirect
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if @item.buy.present?
+    end
+  end
 
