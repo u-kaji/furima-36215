@@ -31,6 +31,7 @@ RSpec.describe User, type: :model do
       it 'emailは一意性であること' do
         @user.save
         @user2 = FactoryBot.build(:user)
+        binding.pry
         @user2.valid?
         expect(@user2.errors.full_messages).to include("Email has already been taken")
       end
