@@ -13,6 +13,9 @@ class OrdersController < ApplicationController
     else
       render 'index'
     end
+
+    if @item.buy.present?
+      redirect_to root_path
   end
 
   private

@@ -65,10 +65,34 @@ RSpec.describe BuyOrder, type: :model do
         expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
       end
 
+      it '電話番号が12桁以上だと購入不可能' do
+        @buy_order.phone_num = "012345678901"
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
+      end
+
+      it '電話番号に英数字混合だと購入不可能' do
+        @buy_order.phone_num = "o12-3456-789o"
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
+      end
+
       it 'カード情報に入力がないと購入不可' do
         @buy_order.token = ""
         @buy_order.invalid?
         expect(@buy_order.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空だと購入不可能' do
+        @buy_order.user_id =  nil
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと購入不可能' do
+        @buy_order.item_id = nil
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

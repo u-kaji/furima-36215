@@ -33,7 +33,7 @@ class BuysController < ApplicationController
   end
 
   def buy_params
-    params.require(:buy_order).permit(:post_num, :prefecture_id, :city, :address, :building, :phone_num).merge(user_id:current_user.id, item_id:@item.id)
+    params.require(:buy_order).permit(:post_num, :prefecture_id, :city, :address, :building, :phone_num).merge(user_id:current_user.id, item_id:@item.id, token:params[:token])
   end
 
   def user_redirect
