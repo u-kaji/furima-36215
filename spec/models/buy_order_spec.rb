@@ -64,6 +64,12 @@ RSpec.describe BuyOrder, type: :model do
         @buy_order.invalid?
         expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
       end
+
+      it 'カード情報に入力がないと購入不可' do
+        @buy_order.token = ""
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end

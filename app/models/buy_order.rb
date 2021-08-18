@@ -1,6 +1,6 @@
 class BuyOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :post_num, :prefecture_id, :city, :address, :building, :phone_num
+  attr_accessor :user_id, :item_id, :post_num, :prefecture_id, :city, :address, :building, :phone_num, :token
 
   with_options presence: true do
     validates :post_num, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
@@ -10,6 +10,7 @@ class BuyOrder
     validates :phone_num, format: {with: /\A[0-9]{10,11}\z/, message: "is invalid. Don't need hyphen(-)"}
     validates :user_id
     validates :item_id
+    validates :token
   end
 
     def save
