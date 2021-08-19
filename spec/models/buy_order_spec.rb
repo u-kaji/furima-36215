@@ -71,6 +71,12 @@ RSpec.describe BuyOrder, type: :model do
         expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
       end
 
+      it '電話番号が9桁以下だと購入不可能' do
+        @buy_order.phone_num = "012345678"
+        @buy_order.invalid?
+        expect(@buy_order.errors.full_messages).to include("Phone num is invalid. Don't need hyphen(-)")
+      end
+
       it '電話番号に英数字混合だと購入不可能' do
         @buy_order.phone_num = "o12-3456-789o"
         @buy_order.invalid?
