@@ -9,10 +9,6 @@ class BuysController < ApplicationController
     end
   end
 
-  def new
-    @buy_order = BuyOrder.new
-  end
-
   def create
     @buy_order = BuyOrder.new(buy_params)
     if @buy_order.valid?
