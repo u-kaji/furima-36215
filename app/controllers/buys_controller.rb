@@ -6,7 +6,6 @@ class BuysController < ApplicationController
 
   def index
     @buy_order = BuyOrder.new
-    end
   end
 
   def create
@@ -26,7 +25,7 @@ class BuysController < ApplicationController
         card: order_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
-end
+  end
 
   private
 
@@ -40,11 +39,8 @@ end
 
   def user_redirect
     redirect_to root_path if @item.buy.present?
-    end
-    if current_user.id == @item.user.id
-      redirect_to root_path
-    end
-
+    redirect_to root_path if current_user.id == @item.user.id
+  end
 end
 
 
