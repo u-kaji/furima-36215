@@ -39,18 +39,22 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-end
 
-private
 
-def item_params
-  params.require(:item).permit(:name, :detail, :category_id, :condition_id, :send_cost_id, :prefecture_id, :send_day_id, :price, :user_id, :image).merge(user_id: current_user.id)
-end
+  private
 
-def set_item
-  @item = Item.find(params[:id])
-end
+  def item_params
+    params.require(:item).permit(:name, :detail, :category_id, :condition_id, :send_cost_id, :prefecture_id, :send_day_id, :price, :user_id, :image).merge(user_id: current_user.id)
+  end
 
-def user_redirect
-  redirect_to root_path unless current_user.id == @item.user_id
-end
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def user_redirect
+    redirect_to root_path unless current_user.id == @item.user_id
+    end
+    if @item.buy.present?
+      redirect_to root_path
+    end
+  end
