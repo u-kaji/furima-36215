@@ -1,13 +1,11 @@
 class BuysController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :user_redirect, only:[:index]
+  before_action :user_redirect, only:[:index, :create]
 
 
   def index
     @buy_order = BuyOrder.new
-    if current_user.id == @item.user.id
-      redirect_to root_path
     end
   end
 
@@ -25,6 +23,14 @@ class BuysController < ApplicationController
     end
   end
 
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+      Payjp::Charge.create(
+        amount: order_params[:price],  # 商品の値段
+        card: order_params[:token],    # カードトークン
+        currency: 'jpy'                 # 通貨の種類（日本円）
+      )
+end
 
   private
 
@@ -39,6 +45,10 @@ class BuysController < ApplicationController
   def user_redirect
     redirect_to root_path if @item.buy.present?
     end
-  end
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    end
+
+end
 
 
